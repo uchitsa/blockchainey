@@ -38,4 +38,23 @@ public class Block {
             throw new RuntimeException(e);
         }
     }
+
+    public void mineBlock(int difficulty) {
+        nonce = 0;
+        String target = new String(new char[difficulty]).replace('\0', '0');
+        while (!currHash.substring(0, difficulty).equals(target)) {
+            nonce++;
+            currHash = calcHash();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Block #" + index + "\r\n" +
+                ", timestamp=" + timestamp + "\r\n" +
+                ", currHash='" + currHash + '\'' + "\r\n" +
+                ", prevHash='" + prevHash + '\'' + "\r\n" +
+                ", data='" + data + '\'' + "\r\n" +
+                ", nonce=" + nonce + "\r\n";
+    }
 }
