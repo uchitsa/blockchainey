@@ -21,6 +21,30 @@ public class Block {
         this.nonce = 0;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public String getCurrHash() {
+        return currHash;
+    }
+
+    public String getPrevHash() {
+        return prevHash;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public int getNonce() {
+        return nonce;
+    }
+
     private String calcHash() {
         try {
             String input = index + timestamp + prevHash + data + nonce;
@@ -51,10 +75,10 @@ public class Block {
     @Override
     public String toString() {
         return "Block #" + index + "\r\n" +
-                ", timestamp=" + timestamp + "\r\n" +
-                ", currHash='" + currHash + '\'' + "\r\n" +
-                ", prevHash='" + prevHash + '\'' + "\r\n" +
-                ", data='" + data + '\'' + "\r\n" +
-                ", nonce=" + nonce + "\r\n";
+                " timestamp = " + timestamp + "\r\n" +
+                " currHash = '" + currHash + '\'' + "\r\n" +
+                " prevHash = '" + prevHash + '\'' + "\r\n" +
+                " data = '" + data + '\'' + "\r\n" +
+                " nonce = " + nonce + "\r\n";
     }
 }
