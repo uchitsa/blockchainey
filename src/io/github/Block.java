@@ -45,7 +45,7 @@ public class Block {
         return nonce;
     }
 
-    private String calcHash() {
+    public String calcHash() {
         try {
             String input = index + timestamp + prevHash + data + nonce;
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
