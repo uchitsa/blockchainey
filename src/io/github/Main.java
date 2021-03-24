@@ -17,5 +17,35 @@ public class Main {
         block2.mineBlock(difficulty);
         blockchain.add(block2);
         System.out.println(block2.toString());
+        System.out.println("Current chain valid: " + validChain(blockchain));
+    }
+
+    public static boolean validChain(ArrayList<Block> blockchain) {
+        if (!validBlock(blockchain.get(0), null)) return false;
+
+        for (int i = 1; i < blockchain.size(); i++) {
+            Block currBlock = blockchain.get(i);
+            Block prevBlock = blockchain.get(i - 1);
+            if (!validBlock(currBlock, prevBlock)) return false;
+        }
+        return true;
+    }
+
+    public static boolean validBlock(Block newBlock, Block oldBlock) {
+        if (oldBlock == null) {
+            if (newBlock.getIndex() != 0) return false;
+            if (newBlock.getPrevHash() != null) return false;
+            if (newBlock.getCurrHash() == null || !newBlock.calcHash().equals(newBlock.getCurrHash())) return false;
+            return true;
+        } else {
+            if (newBlock != null) {
+                if (oldBlock.getIndex() + 1 != newBlock.getIndex()) return false;
+                if (newBlock.getPrevHash() == null || !newBlock.getPrevHash().equals(oldBlock.getCurrHash()))
+                    return false;
+                if (newBlock.getCurrHash() == null || !newBlock.calcHash().equals(newBlock.getCurrHash())) return false;
+                return true;
+            }
+            return false;
+        }
     }
 }
