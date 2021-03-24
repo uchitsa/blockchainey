@@ -3,6 +3,7 @@ package io.github;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class Block {
     private int index;
@@ -11,14 +12,15 @@ public class Block {
     private String prevHash;
     private String data;
     private int nonce;
+    private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
-    public Block(int index, String prevHash, String data) {
+    public Block(int index, String prevHash, ArrayList<Transaction> transactions) {
         this.index = index;
         this.timestamp = System.currentTimeMillis();
         this.currHash = calcHash();
         this.prevHash = prevHash;
-        this.data = data;
         this.nonce = 0;
+        this.transactions = transactions;
     }
 
     public int getIndex() {
@@ -47,6 +49,10 @@ public class Block {
 
     public String calcHash() {
         try {
+            data = "";
+            for (Transaction transaction : transactions) {
+                data = String.format("%s%s", data, transaction.getRecipient() + transaction.getRecipient() + transaction.getValue());
+            }
             String input = index + timestamp + prevHash + data + nonce;
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
