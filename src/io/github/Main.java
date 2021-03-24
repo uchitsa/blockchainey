@@ -17,6 +17,18 @@ public class Main {
         block2.mineBlock(difficulty);
         blockchain.add(block2);
         System.out.println(block2.toString());
+        System.out.println("Current chain valid: " + validChain(blockchain));
+    }
+
+    public static boolean validChain(ArrayList<Block> blockchain) {
+        if (!validBlock(blockchain.get(0), null)) return false;
+
+        for (int i = 1; i < blockchain.size(); i++) {
+            Block currBlock = blockchain.get(i);
+            Block prevBlock = blockchain.get(i - 1);
+            if (!validBlock(currBlock, prevBlock)) return false;
+        }
+        return true;
     }
 
     public static boolean validBlock(Block newBlock, Block oldBlock) {
