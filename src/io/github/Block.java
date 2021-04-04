@@ -47,6 +47,10 @@ public class Block {
         return nonce;
     }
 
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
+
     public String calcHash() {
         try {
             data = "";
