@@ -11,12 +11,12 @@ public class Main {
         Block block = new Block(0, null, "First Block");
         block.mineBlock(difficulty);
         blockchain.add(block);
-        System.out.println(block.toString());
+        System.out.println(block);
 
         Block block2 = new Block(1, block.getCurrHash(), "Second Block");
         block2.mineBlock(difficulty);
         blockchain.add(block2);
-        System.out.println(block2.toString());
+        System.out.println(block2);
         System.out.println("Current chain valid: " + validChain(blockchain));
     }
 
