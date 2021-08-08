@@ -4,11 +4,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 public class Block {
-    private int index;
-    private long timestamp;
+    private final int index;
+    private final long timestamp;
     private String currHash;
-    private String prevHash;
-    private String data;
+    private final String prevHash;
+    private final String data;
     private int nonce;
 
     public Block(int index, String prevHash, String data) {
